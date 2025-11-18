@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Caff-Fit | 스마트한 카페인 & 설탕 관리</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- ====== 로딩 오버레이 ====== -->
+    <div id="loading-overlay" class="loading-overlay">
+        <h1 id="animated-logo" class="animated-logo"><span class="logo-part-1">Caff</span><span class="hide-part">eine</span><span class="logo-part-2">-fit</span></h1>
+    </div>
+
+    <!-- ====== 메인 콘텐츠 ====== -->
+    <div id="main-content" class="main-content-wrapper">
+        <div class="container">
+            <!-- 토스트 알림 컨테이너 -->
+            <div id="toast-container" class="toast-container"></div>
+
+            <!-- 페이지 관리 구조 -->
+            <div id="pages-container">
+            
+            <!-- ====== 페이지 1: 홈 ====== -->
+            <div id="page-home" class="page active">
+                <header class="header">
+                    <div class="header-top">
+                        <div class="logo">
+                            <h1>🚀 Caff-Fit</h1>
+                            <p>스마트한 카페인 & 설탕 섭취 관리 시스템</p>
+                        </div>
+                        <button id="theme-toggle-btn" class="theme-toggle-btn" title="테마 전환">🌙</button>
+                    </div>
+                </header>
+
+                <main class="main-content">
+                    <section class="section home-section">
+                        <div class="home-hero">
+                            <div class="hero-icon">☕🍬</div>
+                            <h2>안녕하세요!</h2>
+                            <p>건강하고 효율적인 하루를 위해</p>
+                            <p>당신의 카페인과 설탕 섭취를 관리해보세요</p>
+                        </div>
+
+                        <div class="home-features">
+                            <div class="feature-card">
+                                <div class="feature-icon">📊</div>
+                                <h3>스마트 분석</h3>
+                                <p>AI가 당신의 건강 상태를 분석하고 최적의 섭취 계획을 제시합니다</p>
+                            </div>
+                            <div class="feature-card">
+                                <div class="feature-icon">⏰</div>
+                                <h3>완벽한 타이밍</h3>
+                                <p>하루의 리듬에 맞춰 제품 섭취 시간을 최적화합니다</p>
+                            </div>
+                            <div class="feature-card">
+                                <div class="feature-icon">💚</div>
+                                <h3>건강한 선택</h3>
+                                <p>과학 기반의 안전 기준으로 당신의 건강을 보호합니다</p>
+                            </div>
+                        </div>
+
+                        <div class="home-actions">
+                            <button id="start-btn" class="btn btn-primary btn-lg">시작하기 →</button>
+                        </div>
+                    </section>
+                </main>
+
+                <footer class="footer">
+                    <p>💚 건강한 당신을 응원합니다 | Caff-Fit v2.0</p>
+                </footer>
+            </div>
+
+            <!-- ====== 페이지 2: 온보딩 (프로필 설정) ====== -->
+            <div id="page-onboarding" class="page">
+                <header class="header">
+                    <div class="logo">
+                        <h1>👤 내 정보 입력</h1>
+                        <p>당신의 건강한 섭취 한도를 계산해드릴게요</p>
+                    </div>
+                    <!-- 진행률 표시 -->
+                    <div class="progress-bar-container">
+                        <div id="onboarding-progress" class="progress-bar" style="width: 0%"></div>
+                    </div>
+                    <div class="progress-text">
+                        <span id="progress-percentage">0</span>% 완료
+                    </div>
+                </header>
+
+                <main class="main-content">
+                    <section class="section onboarding-section">
+                        <!-- 프로필 관리 섹션 -->
+                        <div class="profile-management-section">
+                            <div class="profile-header">
+                                <h3>📁 프로필 관리</h3>
+                                <p>저장된 프로필을 빠르게 선택하거나 새로 만들어보세요</p>
+                            </div>
+
+                            <div class="profile-quick-select">
+                                <select id="profile-select" class="form-input">
+                                    <option value="">-- 새 프로필 만들기 --</option>
+                                </select>
+                                <button id="load-profile-btn" class="btn btn-secondary">로드</button>
+                                <button id="delete-profile-btn" class="btn btn-secondary" style="background-color: var(--error-color);">삭제</button>
+                            </div>
+
+                            <div class="profile-save-name">
+                                <input type="text" id="profile-name-input" class="form-input" placeholder="프로필 이름 (예: 주중, 주말, 운동날)">
+                                <small class="form-hint">프로필을 저장할 때 이 이름으로 저장됩니다</small>
+                            </div>
+                        </div>
+
+                        <hr class="form-divider">
+
+                        <div class="section-header">
+                            <h2>단계 1: 기본 정보</h2>
+                            <p>당신에 대해 알려주세요</p>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="category-select">📌 직업 카테고리</label>
+                            <select id="category-select" class="form-input">
+                                <option value="">-- 선택해주세요 --</option>
+                                <option value="student">학생</option>
+                                <option value="office">직장인</option>
+                                <option value="athlete">헬스인</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="age-select">🎂 나이대</label>
+                            <select id="age-select" class="form-input">
+                                <option value="">-- 선택해주세요 --</option>
+                                <option value="teen">청소년 (13-19세)</option>
+                                <option value="adult">성인 (20세 이상)</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="weight-input">⚖️ 체중 (kg)
+                                <span id="weight-status" style="margin-left: 0.5rem; font-size: 0.85rem; font-weight: normal;"></span>
+                            </label>
+                            <div style="display: flex; gap: 0.75rem; align-items: center;">
+                                <input id="weight-input" type="number" class="form-input" placeholder="예: 65" min="30" max="200" style="flex: 1;">
+                                <span id="weight-display" style="min-width: 60px; text-align: center; padding: 0.5rem 0.75rem; background: var(--bg-secondary); border-radius: var(--radius-md); font-weight: bold; font-size: 0.95rem;">-</span>
+                            </div>
+                            <small class="form-hint">💡 권장: 30kg ~ 200kg</small>
+                        </div>
+
+                        <hr class="form-divider">
+
+                        <div class="section-header">
+                            <h2>단계 2: 수면 및 생활 패턴</h2>
+                            <p>당신의 생활 리듬을 알려주세요</p>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="wake-time">🌅 하루 시작 시간 (기상 시간)</label>
+                            <input id="wake-time" type="time" class="form-input" value="08:00">
+                            <small class="form-hint">평소 일어나는 시간을 입력하세요. 이 시간부터 카페인 섭취 계획이 시작됩니다.</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="sleep-time">🌙 취침 시간</label>
+                            <input id="sleep-time" type="time" class="form-input" value="22:00">
+                            <small class="form-hint">평소 자는 시간을 입력하세요. 취침 전 카페인을 피하도록 조정합니다.</small>
+                        </div>
+
+                        <div id="my-limit-display" class="limit-display">
+                            <!-- 계산된 안전 한도가 여기 표시됨 -->
+                        </div>
+
+                        <div class="onboarding-actions">
+                            <button id="back-to-home-btn" class="btn btn-secondary">← 돌아가기</button>
+                            <button id="save-profile-btn" class="btn btn-primary">정보 저장하고 계속 →</button>
+                        </div>
+
+                        <!-- 프로필 저장 옵션 -->
+                        <div class="profile-save-section" style="margin-top: 1.5rem; padding: 1rem; background: rgba(108, 255, 208, 0.05); border-radius: var(--radius-lg); border: 1px solid rgba(108, 255, 208, 0.2);">
+                            <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 0.5rem;">💡 팁: 프로필을 저장해두면 다음에 빠르게 불러올 수 있습니다!</p>
+                            <button id="save-profile-as-btn" class="btn btn-secondary" style="width: 100%;">💾 이 프로필을 새로 저장하기</button>
+                        </div>
+                    </section>
+                </main>
+
+                <footer class="footer">
+                    <p>💚 건강한 당신을 응원합니다 | Caff-Fit v2.0</p>
+                </footer>
+            </div>
+
+            <!-- ====== 페이지 3: 플래너 (제품 선택) ====== -->
+            <div id="page-planner" class="page">
+                <header class="header">
+                    <div class="logo">
+                        <h1>📋 마실 제품 플래너</h1>
+                        <p>오늘 하루 섭취 계획을 세워보세요</p>
+                    </div>
+                </header>
+
+                <main class="main-content">
+                    <section class="section planner-section">
+                        <div class="section-header">
+                            <h2>오늘 섭취할 제품을 선택하세요</h2>
+                            <p>여러 개 선택할 수 있습니다</p>
+                        </div>
+
+                        <div class="planner-container">
+                            <!-- 빠른 선택 탭 -->
+                            <div class="product-quick-tabs">
+                                <button class="quick-tab-btn active" data-tab="all">🔍 모든 제품</button>
+                                <button class="quick-tab-btn" data-tab="favorites">⭐ 즐겨찾기</button>
+                                <button class="quick-tab-btn" data-tab="recent">⏰ 최근 사용</button>
+                                <button class="quick-tab-btn" data-tab="recommended">✨ 추천</button>
+                            </div>
+
+                            <!-- 스마트 추천 섹션 (숨김) -->
+                            <div id="smart-recommendations" class="smart-recommendations" style="display: none;">
+                                <div class="recommendations-header">
+                                    <h3>🎯 당신을 위한 추천</h3>
+                                    <p id="recommendation-reason">맞춤형 제품을 추천해드립니다</p>
+                                </div>
+                                <div id="recommendations-container" class="recommendations-grid">
+                                    <!-- 동적으로 추천 제품 생성 -->
+                                </div>
+                            </div>
+
+                            <!-- 카테고리 필터 추가 -->
+                            <div class="form-group">
+                                <label for="category-filter">📂 카테고리로 찾기 (선택사항)</label>
+                                <select id="category-filter" class="form-input">
+                                    <option value="">-- 전체 카테고리 --</option>
+                                    <!-- 동적으로 카테고리 생성 -->
+                                </select>
+                            </div>
+
+                            <!-- 제품 선택 -->
+                            <div class="product-input-group">
+                                <div class="form-group">
+                                    <label for="product-select">🥤 마실 제품 선택</label>
+                                    <select id="product-select" class="form-input">
+                                        <option value="">-- 제품을 선택해주세요 --</option>
+                                        <!-- productDB로 동적 생성 -->
+                                    </select>
+                                </div>
+                                <button id="add-product-btn" class="btn btn-secondary">추가하기</button>
+                                <button id="favorite-product-btn" class="btn btn-secondary" title="즐겨찾기에 추가">⭐</button>
+                            </div>
+
+                            <!-- 선택된 제품 카운트 -->
+                            <div style="display: flex; align-items: center; gap: 0.5rem; margin-top: 1rem; padding: 0.75rem; background: var(--bg-secondary); border-radius: var(--radius-md);">
+                                <span style="font-weight: bold;">선택한 제품:</span>
+                                <span id="selected-product-count" style="background: var(--primary-color); color: #000; padding: 0.25rem 0.75rem; border-radius: var(--radius-sm); font-weight: bold; font-size: 0.95rem;">0개</span>
+                                <span id="selected-product-stats" style="font-size: 0.9rem; color: var(--text-secondary); margin-left: auto;"></span>
+                            </div>
+
+                            <!-- 제품 통계 요약 -->
+                            <div id="product-stats" class="product-stats-container">
+                                <div class="stat-card">
+                                    <div class="stat-icon">☕</div>
+                                    <div class="stat-content">
+                                        <div class="stat-label">총 카페인</div>
+                                        <div class="stat-value"><span id="total-caffeine">0</span>mg</div>
+                                    </div>
+                                </div>
+                                <div class="stat-card">
+                                    <div class="stat-icon">🍬</div>
+                                    <div class="stat-content">
+                                        <div class="stat-label">총 설탕</div>
+                                        <div class="stat-value"><span id="total-sugar">0</span>g</div>
+                                    </div>
+                                </div>
+                                <div class="stat-card">
+                                    <div class="stat-icon">📊</div>
+                                    <div class="stat-content">
+                                        <div class="stat-label">선택된 제품</div>
+                                        <div class="stat-value"><span id="product-count">0</span>개</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="product-list" class="product-list">
+                                <!-- 선택된 제품이 여기 표시됨 -->
+                            </div>
+
+                            <div class="time-group">
+                                <div class="form-group">
+                                    <label for="start-time">⏰ 목표 시작 시간</label>
+                                    <input id="start-time" type="time" class="form-input">
+                                </div>
+                                <button id="get-plan-btn" class="btn btn-success">🤖 AI 최적 스케줄 받기!</button>
+                            </div>
+                        </div>
+
+                        <div class="planner-actions">
+                            <button id="back-to-onboarding-btn" class="btn btn-secondary">← 이전 단계</button>
+                        </div>
+                    </section>
+                </main>
+
+                <footer class="footer">
+                    <p>💚 건강한 당신을 응원합니다 | Caff-Fit v2.0</p>
+                </footer>
+            </div>
+
+            <!-- ====== 페이지 4: 건강 리포트 ====== -->
+            <div id="page-health-report" class="page">
+                <header class="header">
+                    <div class="header-top">
+                        <div class="logo">
+                            <h1>📊 건강 리포트</h1>
+                            <p>당신의 카페인 & 설탕 섭취 패턴 분석</p>
+                        </div>
+                        <button id="theme-toggle-btn" class="theme-toggle-btn" title="테마 전환">🌙</button>
+                    </div>
+                </header>
+
+                <main class="main-content">
+                    <section class="section health-report-section">
+                        <!-- 초기 안내 메시지 -->
+                        <div id="report-empty-state" style="text-align: center; padding: 2rem; background: var(--bg-secondary); border-radius: var(--radius-lg); margin-bottom: 2rem;">
+                            <div style="font-size: 2.5rem; margin-bottom: 1rem;">📊</div>
+                            <h3 style="margin-bottom: 0.5rem; color: var(--text-secondary);">아직 기록이 없습니다</h3>
+                            <p style="color: var(--text-light); margin-bottom: 1rem;">AI 분석 결과를 만들면 여기에 당신의 건강 통계가 표시됩니다</p>
+                            <p style="font-size: 0.85rem; color: var(--text-light);">💡 팁: "플래너" 탭에서 AI 분석을 실행하면 리포트 데이터가 자동으로 저장됩니다</p>
+                        </div>
+
+                        <!-- 기간 선택 -->
+                        <div class="report-period-selector" id="period-selector" style="display: none;">
+                            <button class="period-btn active" data-period="week">📅 이번주</button>
+                            <button class="period-btn" data-period="month">📆 이번달</button>
+                            <button class="period-btn" data-period="all">📊 전체</button>
+                        </div>
+
+                        <!-- 요약 통계 -->
+                        <div class="report-summary">
+                            <div class="summary-card">
+                                <div class="summary-icon">☕</div>
+                                <div class="summary-info">
+                                    <div class="summary-label">총 카페인</div>
+                                    <div class="summary-value" id="total-caffeine">0 mg</div>
+                                    <div class="summary-detail">일일 목표: 400 mg</div>
+                                </div>
+                            </div>
+                            <div class="summary-card">
+                                <div class="summary-icon">🍬</div>
+                                <div class="summary-info">
+                                    <div class="summary-label">총 설탕</div>
+                                    <div class="summary-value" id="total-sugar">0 g</div>
+                                    <div class="summary-detail">WHO 권장: 50 g</div>
+                                </div>
+                            </div>
+                            <div class="summary-card">
+                                <div class="summary-icon">📈</div>
+                                <div class="summary-info">
+                                    <div class="summary-label">섭취 횟수</div>
+                                    <div class="summary-value" id="total-count">0회</div>
+                                    <div class="summary-detail">평균/일</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 위험도 평가 -->
+                        <div class="health-assessment">
+                            <h3>⚠️ 건강 평가</h3>
+                            <div class="assessment-cards">
+                                <div class="assessment-card caffeine-assessment">
+                                    <div class="assessment-title">카페인 섭취</div>
+                                    <div class="assessment-bar">
+                                        <div class="assessment-fill" id="caffeine-fill" style="width: 0%;"></div>
+                                    </div>
+                                    <div class="assessment-text">
+                                        <span id="caffeine-status">정상</span>
+                                        <span id="caffeine-percentage">0%</span>
+                                    </div>
+                                </div>
+                                <div class="assessment-card sugar-assessment">
+                                    <div class="assessment-title">설탕 섭취</div>
+                                    <div class="assessment-bar">
+                                        <div class="assessment-fill" id="sugar-fill" style="width: 0%;"></div>
+                                    </div>
+                                    <div class="assessment-text">
+                                        <span id="sugar-status">정상</span>
+                                        <span id="sugar-percentage">0%</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 건강 팁 -->
+                        <div class="health-tips">
+                            <h3>💡 건강 팁</h3>
+                            <div id="health-tips-container" class="tips-container">
+                                <!-- 동적으로 팁 생성 -->
+                            </div>
+                        </div>
+
+                        <!-- 권장 제품 -->
+                        <div class="recommended-products">
+                            <h3>✨ 권장 제품</h3>
+                            <div id="recommended-products-container" class="products-list">
+                                <!-- 동적으로 권장 제품 생성 -->
+                            </div>
+                        </div>
+                    </section>
+                </main>
+
+                <div class="report-actions">
+                    <button id="back-to-planner-from-report-btn" class="btn btn-secondary">← 플래너로 돌아가기</button>
+                    <button id="download-report-btn" class="btn btn-primary">📥 리포트 저장</button>
+                </div>
+
+                <footer class="footer">
+                    <p>💚 건강한 당신을 응원합니다 | Caff-Fit v2.0</p>
+                </footer>
+            </div>
+
+            <!-- ====== 페이지 5: 결과 (AI 분석) ====== -->
+            <div id="page-result" class="page">
+                <header class="header">
+                    <div class="logo">
+                        <h1>✨ AI 분석 결과</h1>
+                        <p>당신의 맞춤형 카페인 & 설탕 관리 계획</p>
+                    </div>
+                </header>
+
+                <main class="main-content">
+                    <section class="section result-section">
+                        <div id="loading-spinner" class="loading-spinner">
+                            <div class="spinner"></div>
+                            <p id="loading-text" style="margin-top: 1rem; font-weight: 500;">AI가 최적의 스케줄을 분석하고 있습니다...</p>
+                            <div id="loading-progress" style="margin-top: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                                <div style="flex: 1; height: 4px; background: var(--bg-tertiary); border-radius: 2px; overflow: hidden;">
+                                    <div id="loading-progress-bar" style="height: 100%; background: var(--primary-color); width: 0%; animation: pulse 1.5s ease-in-out infinite;"></div>
+                                </div>
+                                <span id="loading-percent" style="min-width: 35px; text-align: right; font-size: 0.85rem; color: var(--text-secondary);">0%</span>
+                            </div>
+                        </div>
+
+                        <div id="result-content" style="display: block; animation: fadeIn 0.5s ease-in;">
+                            <!-- 안전도 지표 -->
+                            <div class="safety-meter-container">
+                                <div class="safety-meter">
+                                    <div class="meter-title">☕ 카페인 안전도</div>
+                                    <div class="meter-bar">
+                                        <div id="caffeine-meter" class="meter-fill" style="width: 0%"></div>
+                                    </div>
+                                    <div class="meter-value">
+                                        <span id="caffeine-percentage">0</span>% / 100%
+                                    </div>
+                                </div>
+
+                                <div class="safety-meter">
+                                    <div class="meter-title">🍬 설탕 안전도</div>
+                                    <div class="meter-bar">
+                                        <div id="sugar-meter" class="meter-fill" style="width: 0%"></div>
+                                    </div>
+                                    <div class="meter-value">
+                                        <span id="sugar-percentage">0</span>% / 100%
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- AI 분석 결과 -->
+                            <div class="ai-result-display-wrapper">
+                                <h3>📅 AI 최적 섭취 스케줄</h3>
+                                <div id="ai-result-display" class="ai-result-display">
+                                    <!-- AI 분석 결과가 여기 표시됨 -->
+                                </div>
+                            </div>
+
+                            <!-- 결과 저장 옵션 -->
+                            <div class="result-save-options">
+                                <button id="save-plan-btn" class="btn btn-success">💾 계획 저장</button>
+                                <button id="share-result-btn" class="btn btn-secondary">📤 공유하기</button>
+                            </div>
+                        </div>
+
+                        <div class="result-actions" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--bg-tertiary);">
+                            <button id="restart-btn" class="btn btn-primary">🏠 처음으로</button>
+                            <button id="back-to-planner-btn" class="btn btn-secondary">← 다시 선택</button>
+                            <button id="view-health-report-btn" class="btn btn-secondary">📊 리포트</button>
+                        </div>
+                    </section>
+                </main>
+
+                <footer class="footer">
+                    <p>💚 건강한 당신을 응원합니다 | Caff-Fit v2.0</p>
+                </footer>
+            </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- 스크립트 로드 순서 중요! (DB 먼저 로드 후 script.js 로드) -->
+    <script src="knowledge_constants.js"></script>  <!-- 상수 DB -->
+    <script src="knowledge_products.js"></script>   <!-- 카페인 제품 DB (caffeineDB) -->
+    <script src="knowledge_symptoms.js"></script>   <!-- 증상 DB -->
+    <script src="script.js"></script>               <!-- 메인 로직 -->
+
+</body>
+</html>
